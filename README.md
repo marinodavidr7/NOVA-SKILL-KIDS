@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NOVA SKILL KIDS (ERP & Gestión Administrativa)
 
-## Getting Started
+Sistema integral web para la gestión de estancias infantiles, control de alumnos, finanzas, inventario y recursos humanos.
 
-First, run the development server:
+## 🚀 Tecnologías Principales
 
+- **Frontend:** Next.js 14, React, Tailwind CSS
+- **Backend:** Node.js (Next.js API Routes)
+- **Base de Datos:** MySQL (mysql2)
+- **Autenticación:** JWT (JSON Web Tokens) / Cookies
+
+## 📦 Instalación y Ejecución Local
+
+1. Instalar las dependencias del proyecto:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configurar la base de datos MySQL local y arrancar el servidor:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔑 Credenciales de Acceso (Administrador)
 
-## Learn More
+Para ingresar al sistema por primera vez, utiliza cualquiera de los siguientes usuarios preconfigurados:
 
-To learn more about Next.js, take a look at the following resources:
+- **Usuario:** `Nova Skill Admin` (o `ERichardson`)
+- **Contraseña:** `admin123` (o la contraseña de entorno configurada)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*(Se recomienda cambiar la contraseña desde el panel de Configuración una vez hayas ingresado).*
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Módulos Principales
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Niños y Padres:** Expedientes, asistencia, familiares autorizados.
+- **Finanzas:** Flujo de caja, ingresos, gastos, recibos, caja chica.
+- **Inventario:** Control de activos, mobiliario y compras.
+- **Personal:** Nómina, asistencias, recibos de pago.
+- **Reportes:** Generación automática de reportes ejecutivos.
