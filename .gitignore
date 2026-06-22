@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# databases and executables
+*.db
+*.sqlite
+*.exe
+*.zip
+public/uploads/

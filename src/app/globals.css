@@ -1,26 +1,1014 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-heading: var(--font-sans);
+  --font-brand: "Outfit", sans-serif;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: oklch(0.98 0.002 280);
+  --foreground: oklch(0.18 0.02 280);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 280);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.02 280);
+  --primary: oklch(0.55 0.22 270);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.95 0.02 280);
+  --secondary-foreground: oklch(0.25 0.02 280);
+  --muted: oklch(0.96 0.01 280);
+  --muted-foreground: oklch(0.50 0.02 280);
+  --accent: oklch(0.93 0.04 280);
+  --accent-foreground: oklch(0.25 0.02 280);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.01 280);
+  --input: oklch(0.92 0.01 280);
+  --ring: oklch(0.55 0.22 270);
+  --chart-1: oklch(0.55 0.22 270);
+  --chart-2: oklch(0.65 0.18 160);
+  --chart-3: oklch(0.70 0.16 50);
+  --chart-4: oklch(0.60 0.20 330);
+  --chart-5: oklch(0.58 0.15 200);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.16 0.02 280);
+  --sidebar-foreground: oklch(0.90 0.01 280);
+  --sidebar-primary: oklch(0.55 0.22 270);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.22 0.03 280);
+  --sidebar-accent-foreground: oklch(0.95 0.01 280);
+  --sidebar-border: oklch(0.25 0.02 280);
+  --sidebar-ring: oklch(0.55 0.22 270);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.65 0.22 270);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans scroll-smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+  .animate-slide-in-left {
+    animation: slide-in-left 0.3s ease-out forwards;
+  }
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+  /* For receipt printing inside AppShell */
+  @media print {
+    html, body {
+      height: auto !important;
+      overflow: visible !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+/* ── Apariencia Rosada (Feminine Pink Theme) ── */
+.theme-pink {
+  --primary: oklch(0.60 0.22 340); /* Beautiful pink/rose accent */
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.60 0.22 340);
+  
+  --background: oklch(0.985 0.01 340); /* Soft pastel pink body bg */
+  --card: oklch(1 0.005 340); /* White card with a micro pink tint */
+  --popover: oklch(1 0.005 340);
+  
+  --border: oklch(0.93 0.02 340); /* Soft pink border */
+  --input: oklch(0.93 0.02 340);
+  
+  --sidebar-primary: oklch(0.60 0.22 340);
+  --sidebar-ring: oklch(0.60 0.22 340);
+  
+  --accent: oklch(0.95 0.03 340);
+  --accent-foreground: oklch(0.40 0.18 340);
+}
+
+/* Sidebar overrides for pink theme - Menu must be pink */
+.theme-pink aside {
+  background: linear-gradient(to bottom, oklch(0.97 0.02 340), oklch(0.93 0.03 340)) !important;
+  color: oklch(0.25 0.10 340) !important;
+  border-right: 1px solid oklch(0.88 0.03 340) !important;
+  box-shadow: none !important;
+
+  /* App name and subtitle */
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.25 0.10 340) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.55 0.15 340) !important;
+  }
+
+  /* Section headers */
+  h3.text-slate-500 {
+    color: oklch(0.40 0.10 340 / 70%) !important;
+  }
+
+  /* Navigation links */
+  a {
+    color: oklch(0.30 0.10 340) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.22 340 / 8%) !important;
+      color: oklch(0.20 0.18 340) !important;
+    }
+  }
+
+  /* Active navigation link */
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.60 0.22 340 / 12%), oklch(0.60 0.22 340 / 4%)) !important;
+    color: oklch(0.20 0.18 340) !important;
+  }
+
+  /* Inactive icons */
+  span.text-slate-500 {
+    color: oklch(0.40 0.10 340 / 60%) !important;
+  }
+
+  /* Active icons */
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.60 0.22 340 / 15%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.50 0.18 340) !important;
+  }
+
+  /* Active indicator bar - make it pink */
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.72 0.18 340), oklch(0.60 0.22 340)) !important;
+    box-shadow: 0 1px 2px oklch(0.72 0.18 340 / 50%) !important;
+  }
+
+  /* Separators */
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.04 340), transparent) !important;
+  }
+
+  /* User profile card */
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.60 0.22 340 / 6%) !important;
+    border: 1px solid oklch(0.86 0.04 340) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.22 340 / 10%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.25 0.10 340) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.40 0.10 340 / 70%) !important;
+  }
+  
+  /* Settings icon link at bottom */
+  a.text-slate-600 {
+    color: oklch(0.40 0.10 340 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.22 340 / 10%) !important;
+      color: oklch(0.20 0.18 340) !important;
+    }
+  }
+}
+
+/* ── Apariencia Esmeralda (Emerald Green Theme) ── */
+.theme-emerald {
+  --primary: oklch(0.62 0.16 150);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.62 0.16 150);
+  
+  --background: oklch(0.985 0.01 150);
+  --card: oklch(1 0.005 150);
+  --popover: oklch(1 0.005 150);
+  
+  --border: oklch(0.93 0.02 150);
+  --input: oklch(0.93 0.02 150);
+  
+  --sidebar-primary: oklch(0.62 0.16 150);
+  --sidebar-ring: oklch(0.62 0.16 150);
+  
+  --accent: oklch(0.95 0.02 150);
+  --accent-foreground: oklch(0.35 0.14 150);
+}
+
+.theme-emerald aside {
+  background: linear-gradient(to bottom, oklch(0.97 0.015 150), oklch(0.93 0.02 150)) !important;
+  color: oklch(0.25 0.08 150) !important;
+  border-right: 1px solid oklch(0.88 0.02 150) !important;
+  box-shadow: none !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.25 0.08 150) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.55 0.12 150) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.40 0.08 150 / 70%) !important;
+  }
+
+  a {
+    color: oklch(0.30 0.08 150) !important;
+    
+    &:hover {
+      background-color: oklch(0.62 0.16 150 / 8%) !important;
+      color: oklch(0.20 0.14 150) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.62 0.16 150 / 12%), oklch(0.62 0.16 150 / 4%)) !important;
+    color: oklch(0.20 0.14 150) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.40 0.08 150 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.62 0.16 150 / 15%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.50 0.14 150) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.72 0.14 150), oklch(0.62 0.16 150)) !important;
+    box-shadow: 0 1px 2px oklch(0.72 0.14 150 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.03 150), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.62 0.16 150 / 6%) !important;
+    border: 1px solid oklch(0.86 0.03 150) !important;
+    
+    &:hover {
+      background-color: oklch(0.62 0.16 150 / 10%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.25 0.08 150) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.40 0.08 150 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.40 0.08 150 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.62 0.16 150 / 10%) !important;
+      color: oklch(0.20 0.14 150) !important;
+    }
+  }
+}
+
+/* ── Apariencia Violeta (Violet Purple Theme) ── */
+.theme-violet {
+  --primary: oklch(0.60 0.18 270);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.60 0.18 270);
+  
+  --background: oklch(0.985 0.01 270);
+  --card: oklch(1 0.005 270);
+  --popover: oklch(1 0.005 270);
+  
+  --border: oklch(0.93 0.02 270);
+  --input: oklch(0.93 0.02 270);
+  
+  --sidebar-primary: oklch(0.60 0.18 270);
+  --sidebar-ring: oklch(0.60 0.18 270);
+  
+  --accent: oklch(0.95 0.02 270);
+  --accent-foreground: oklch(0.35 0.15 270);
+}
+
+.theme-violet aside {
+  background: linear-gradient(to bottom, oklch(0.97 0.015 270), oklch(0.93 0.02 270)) !important;
+  color: oklch(0.25 0.08 270) !important;
+  border-right: 1px solid oklch(0.88 0.02 270) !important;
+  box-shadow: none !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.25 0.08 270) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.55 0.12 270) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.40 0.08 270 / 70%) !important;
+  }
+
+  a {
+    color: oklch(0.30 0.08 270) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.18 270 / 8%) !important;
+      color: oklch(0.20 0.15 270) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.60 0.18 270 / 12%), oklch(0.60 0.18 270 / 4%)) !important;
+    color: oklch(0.20 0.15 270) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.40 0.08 270 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.60 0.18 270 / 15%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.50 0.15 270) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.72 0.15 270), oklch(0.60 0.18 270)) !important;
+    box-shadow: 0 1px 2px oklch(0.72 0.15 270 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.03 270), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.60 0.18 270 / 6%) !important;
+    border: 1px solid oklch(0.86 0.03 270) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.18 270 / 10%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.25 0.08 270) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.40 0.08 270 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.40 0.08 270 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.60 0.18 270 / 10%) !important;
+      color: oklch(0.20 0.15 270) !important;
+    }
+  }
+}
+
+/* ── Apariencia Océano (Ocean Blue Theme) ── */
+.theme-ocean {
+  --primary: oklch(0.58 0.16 220);
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.58 0.16 220);
+  
+  --background: oklch(0.985 0.01 220);
+  --card: oklch(1 0.005 220);
+  --popover: oklch(1 0.005 220);
+  
+  --border: oklch(0.93 0.02 220);
+  --input: oklch(0.93 0.02 220);
+  
+  --sidebar-primary: oklch(0.58 0.16 220);
+  --sidebar-ring: oklch(0.58 0.16 220);
+  
+  --accent: oklch(0.95 0.02 220);
+  --accent-foreground: oklch(0.35 0.13 220);
+}
+
+.theme-ocean aside {
+  background: linear-gradient(to bottom, oklch(0.97 0.015 220), oklch(0.93 0.02 220)) !important;
+  color: oklch(0.25 0.08 220) !important;
+  border-right: 1px solid oklch(0.88 0.02 220) !important;
+  box-shadow: none !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.25 0.08 220) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.55 0.11 220) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.40 0.08 220 / 70%) !important;
+  }
+
+  a {
+    color: oklch(0.30 0.08 220) !important;
+    
+    &:hover {
+      background-color: oklch(0.58 0.16 220 / 8%) !important;
+      color: oklch(0.20 0.13 220) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.58 0.16 220 / 12%), oklch(0.58 0.16 220 / 4%)) !important;
+    color: oklch(0.20 0.13 220) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.40 0.08 220 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.58 0.16 220 / 15%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.50 0.13 220) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.72 0.13 220), oklch(0.58 0.16 220)) !important;
+    box-shadow: 0 1px 2px oklch(0.72 0.13 220 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.03 220), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.58 0.16 220 / 6%) !important;
+    border: 1px solid oklch(0.86 0.03 220) !important;
+    
+    &:hover {
+      background-color: oklch(0.58 0.16 220 / 10%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.25 0.08 220) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.40 0.08 220 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.40 0.08 220 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.58 0.16 220 / 10%) !important;
+      color: oklch(0.20 0.13 220) !important;
+    }
+  }
+}
+
+/* ── Apariencia Patria (Dominican Patriot Theme) ── */
+.theme-patrio {
+  --primary: oklch(0.48 0.19 250); /* Dominican flag blue */
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.48 0.19 250);
+  
+  --background: oklch(0.985 0.005 250); /* Soft blue-grayish background */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --popover: oklch(1 0 0);
+  
+  --border: oklch(0.92 0.01 250);
+  --input: oklch(0.92 0.01 250);
+  
+  --sidebar-primary: oklch(0.48 0.19 250);
+  --sidebar-ring: oklch(0.48 0.19 250);
+  
+  --accent: oklch(0.95 0.02 250);
+  --accent-foreground: oklch(0.35 0.12 250);
+}
+
+.theme-patrio aside {
+  background: linear-gradient(to bottom, oklch(0.35 0.15 255), oklch(0.40 0.18 25)) !important;
+  color: oklch(0.98 0.01 250) !important;
+  border-right: 1px solid oklch(0.30 0.10 255) !important;
+  box-shadow: 0 4px 20px oklch(0.25 0.10 255 / 15%) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.99 0 0) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.85 0.03 250) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.90 0.02 250 / 60%) !important;
+  }
+
+  a {
+    color: oklch(0.85 0.03 250) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 10%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.99 0 0 / 15%), oklch(0.99 0 0 / 5%)) !important;
+    color: oklch(0.99 0 0) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.85 0.03 250 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.99 0 0 / 20%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.95 0.02 250) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: oklch(0.99 0 0) !important;
+    box-shadow: 0 1px 4px oklch(0.99 0 0 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.02 250 / 40%), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.99 0 0 / 8%) !important;
+    border: 1px solid oklch(0.85 0.02 250 / 30%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 12%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.99 0 0) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.85 0.02 250 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.85 0.02 250 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 12%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+}
+
+/* ── Apariencia San Valentín (Valentine Theme) ── */
+.theme-valentin {
+  --primary: oklch(0.50 0.20 350); /* Deep rose carmesí */
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.50 0.20 350);
+  
+  --background: oklch(0.985 0.005 350); /* Soft rose background */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --popover: oklch(1 0 0);
+  
+  --border: oklch(0.92 0.01 350);
+  --input: oklch(0.92 0.01 350);
+  
+  --sidebar-primary: oklch(0.50 0.20 350);
+  --sidebar-ring: oklch(0.50 0.20 350);
+  
+  --accent: oklch(0.95 0.03 350);
+  --accent-foreground: oklch(0.40 0.15 350);
+}
+
+.theme-valentin aside {
+  background: linear-gradient(to bottom, oklch(0.35 0.15 355), oklch(0.30 0.12 350)) !important;
+  color: oklch(0.98 0.01 350) !important;
+  border-right: 1px solid oklch(0.30 0.10 350) !important;
+  box-shadow: 0 4px 20px oklch(0.25 0.10 350 / 15%) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.99 0 0) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.85 0.03 350) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.90 0.02 350 / 60%) !important;
+  }
+
+  a {
+    color: oklch(0.85 0.03 350) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 10%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.99 0 0 / 15%), oklch(0.99 0 0 / 5%)) !important;
+    color: oklch(0.99 0 0) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.85 0.03 350 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.99 0 0 / 20%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.95 0.02 350) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: oklch(0.99 0 0) !important;
+    box-shadow: 0 1px 4px oklch(0.99 0 0 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.85 0.02 350 / 40%), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.99 0 0 / 8%) !important;
+    border: 1px solid oklch(0.85 0.02 350 / 30%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 12%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.99 0 0) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.85 0.02 350 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.85 0.02 350 / 70%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 12%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+}
+
+/* ── Apariencia Campamento de Verano (Summer Camp Theme) ── */
+.theme-verano {
+  --primary: oklch(0.65 0.20 85); /* Cálido Naranja/Amarillo Sol */
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.65 0.20 85);
+  
+  --background: oklch(0.99 0.01 90); /* Soft solar crema background */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --popover: oklch(1 0 0);
+  
+  --border: oklch(0.94 0.02 85);
+  --input: oklch(0.94 0.02 85);
+  
+  --sidebar-primary: oklch(0.65 0.20 85);
+  --sidebar-ring: oklch(0.65 0.20 85);
+  
+  --accent: oklch(0.96 0.04 85);
+  --accent-foreground: oklch(0.55 0.18 80);
+}
+
+.theme-verano aside {
+  background: linear-gradient(to bottom, oklch(0.60 0.16 230), oklch(0.75 0.14 85)) !important;
+  color: oklch(0.99 0.005 230) !important;
+  border-right: 1px solid oklch(0.65 0.10 230 / 30%) !important;
+  box-shadow: 0 4px 20px oklch(0.60 0.10 230 / 15%) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.99 0 0) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.98 0.02 90) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.95 0.02 230 / 70%) !important;
+  }
+
+  a {
+    color: oklch(0.95 0.02 230) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 12%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.99 0 0 / 20%), oklch(0.99 0 0 / 5%)) !important;
+    color: oklch(0.99 0 0) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.95 0.02 230 / 70%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.99 0 0 / 25%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.99 0.01 90) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: oklch(0.99 0 0) !important;
+    box-shadow: 0 1px 4px oklch(0.99 0 0 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.99 0 0 / 30%), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.99 0 0 / 10%) !important;
+    border: 1px solid oklch(0.99 0 0 / 20%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 15%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.99 0 0) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.95 0.02 230 / 80%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.95 0.02 230 / 80%) !important;
+    
+    &:hover {
+      background-color: oklch(0.99 0 0 / 15%) !important;
+      color: oklch(0.99 0 0) !important;
+    }
+  }
+}
+
+
+/* ── Dark Mode Content Color Fixes ── */
+.dark {
+  /* Convert white/light backgrounds to dark card/bg colors */
+  .bg-white,
+  .bg-white\/95,
+  .bg-white\/90,
+  .bg-white\/80,
+  .bg-white\/75,
+  .bg-white\/50,
+  .bg-white\/5 {
+    background-color: var(--card) !important;
+  }
+  
+  .bg-slate-50,
+  .bg-gray-50,
+  .bg-slate-100,
+  .bg-gray-100,
+  .bg-slate-200,
+  .bg-gray-200 {
+    background-color: var(--background) !important;
+  }
+
+  /* Handle opacity modifiers for background colors */
+  .bg-slate-50\/50,
+  .bg-slate-100\/50,
+  .bg-slate-200\/50,
+  .hover\:bg-slate-50\/50:hover,
+  .hover\:bg-slate-100\/50:hover {
+    background-color: oklch(0.205 0 0 / 50%) !important;
+  }
+
+  /* Force details, summary, table elements to be transparent/dark */
+  details {
+    background-color: transparent !important;
+  }
+  
+  details[open] {
+    background-color: oklch(0.205 0 0 / 20%) !important;
+  }
+  
+  summary {
+    background-color: transparent !important;
+  }
+  
+  tr, tbody tr, table tr {
+    background-color: transparent !important;
+  }
+
+  /* Gradients for KPI Cards in Dark Mode */
+  .bg-gradient-to-br.from-indigo-50 {
+    background-image: linear-gradient(to bottom right, oklch(0.25 0.08 260 / 20%), var(--card)) !important;
+  }
+  .bg-gradient-to-br.from-emerald-50 {
+    background-image: linear-gradient(to bottom right, oklch(0.25 0.08 160 / 20%), var(--card)) !important;
+  }
+  .bg-gradient-to-br.from-amber-50 {
+    background-image: linear-gradient(to bottom right, oklch(0.25 0.08 60 / 20%), var(--card)) !important;
+  }
+  .bg-gradient-to-br.from-slate-50 {
+    background-image: linear-gradient(to bottom right, oklch(0.25 0.02 280 / 20%), var(--card)) !important;
+  }
+
+  /* Soft status backgrounds (badges, boxes) mapping to dark-themed trans-colors */
+  .bg-rose-50 {
+    background-color: oklch(0.25 0.08 340 / 20%) !important;
+  }
+  .text-rose-600, .text-rose-700 {
+    color: oklch(0.80 0.12 340) !important;
+  }
+  .border-rose-100, .border-rose-200 {
+    border-color: oklch(0.80 0.12 340 / 30%) !important;
+  }
+
+  .bg-emerald-50 {
+    background-color: oklch(0.25 0.08 160 / 20%) !important;
+  }
+  .text-emerald-700 {
+    color: oklch(0.80 0.12 160) !important;
+  }
+  .border-emerald-200 {
+    border-color: oklch(0.80 0.12 160 / 30%) !important;
+  }
+
+  .bg-amber-50 {
+    background-color: oklch(0.25 0.08 60 / 20%) !important;
+  }
+  .text-amber-700 {
+    color: oklch(0.80 0.12 60) !important;
+  }
+  .border-amber-200 {
+    border-color: oklch(0.80 0.12 60 / 30%) !important;
+  }
+
+  .bg-blue-50, .bg-indigo-50 {
+    background-color: oklch(0.25 0.08 260 / 20%) !important;
+  }
+
+  /* Convert light borders to dark borders */
+  .border-slate-100,
+  .border-slate-200,
+  .border-slate-300,
+  .border-slate-200\/80,
+  .border-slate-200\/60,
+  .border-slate-100\/80 {
+    border-color: var(--border) !important;
+  }
+
+  /* Fix text contrast in dark mode */
+  .text-slate-950, 
+  .text-slate-900, 
+  .text-slate-800 {
+    color: oklch(0.95 0.01 280) !important;
+  }
+  
+  .text-slate-700, 
+  .text-slate-600, 
+  .text-slate-500 {
+    color: oklch(0.75 0.01 280) !important;
+  }
+
+  .text-indigo-900 {
+    color: oklch(0.85 0.12 260) !important;
+  }
+
+  .text-emerald-900 {
+    color: oklch(0.85 0.12 160) !important;
+  }
+
+  .text-amber-900 {
+    color: oklch(0.85 0.12 60) !important;
+  }
+  
+  /* Input placeholders */
+  ::placeholder {
+    color: oklch(0.60 0.01 280) !important;
+  }
+
+  /* Dropdown lists options */
+  option {
+    background-color: var(--card) !important;
+    color: var(--foreground) !important;
+  }
 }
