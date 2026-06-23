@@ -27,8 +27,8 @@ npm run dev
 
 Para ingresar al sistema por primera vez, utiliza cualquiera de los siguientes usuarios preconfigurados:
 
-- **Usuario:** `Nova Skill Admin` (o `ERichardson`)
-- **Contraseña:** `admin123` (o la contraseña de entorno configurada)
+- **Usuario:** `Nova Skill Admin`
+- **Contraseña:** `novaskill2026` (o la contraseña de entorno configurada)
 
 *(Se recomienda cambiar la contraseña desde el panel de Configuración una vez hayas ingresado).*
 
