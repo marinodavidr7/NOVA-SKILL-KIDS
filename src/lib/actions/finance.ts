@@ -97,7 +97,7 @@ export async function getTuitionStatusByPeriod(period: string) {
   // Get all tuition incomes for this period
   const [incomes] = await db.query(`
     SELECT * FROM income 
-    WHERE type = 'tuition' AND period = ?
+    WHERE type IN ('tuition', 'Inscripción', 'Mensualidad', 'Cuota Semanal', 'Cuota') AND period = ?
   `, [period]);
 
   // Map the status
@@ -106,7 +106,7 @@ export async function getTuitionStatusByPeriod(period: string) {
     return {
       ...child,
       fullName: `${child.firstName} ${child.lastName}`,
-      isPaid: payment ? payment.status === 'paid' : false,
+      isPaid: payment ? (payment.status === 'paid' || payment.status === 'completed') : false,
       paymentDetails: payment || null
     };
   });
@@ -118,7 +118,7 @@ export async function getTuitionStatusByPeriod(period: string) {
 export async function getMonthlyFinancialSummary(period: string) {
   // Total collected this period
   const [totalIncomeObj] = await db.query(`
-    SELECT SUM(amount) as total FROM income WHERE period = ?
+    SELECT SUM(amount) as total FROM income WHERE period = ? AND status IN ('paid', 'completed')
   `, [period]);
   
   // Total paid to staff this period (assuming periodStart matches the month)
@@ -129,10 +129,21 @@ export async function getMonthlyFinancialSummary(period: string) {
     SELECT SUM(netPay) as total FROM staff_payroll WHERE periodStart LIKE ?
   `, [`${monthPrefix}-%`]);
 
+  // General expenses from finance_transactions
+  const [totalExpensesObj] = await db.query(`
+    SELECT SUM(amount) as total FROM finance_transactions WHERE type = 'out' AND date LIKE ?
+  `, [`${monthPrefix}-%`]);
+
+  const totalIncome = (totalIncomeObj as any[])[0]?.total || 0;
+  const totalPayroll = (totalPayrollObj as any[])[0]?.total || 0;
+  const totalGeneralExpenses = (totalExpensesObj as any[])[0]?.total || 0;
+  
+  const totalExpenses = totalPayroll + totalGeneralExpenses;
+
   return {
-    totalIncome: (totalIncomeObj as any[])[0]?.total || 0,
-    totalExpenses: (totalPayrollObj as any[])[0]?.total || 0,
-    netProfit: ((totalIncomeObj as any[])[0]?.total || 0) - ((totalPayrollObj as any[])[0]?.total || 0)
+    totalIncome,
+    totalExpenses,
+    netProfit: totalIncome - totalExpenses
   };
 }
 
@@ -158,4 +169,26 @@ export async function getIncomeReceipt(id: string) {
     LIMIT 1
   `, [id]);
   return (rows as any[])[0] as any;
+}
+
+/**
+ * Get all pending receivables
+ */
+export async function getPendingReceivables() {
+  const [rows] = await db.query(`
+    SELECT 
+      i.*, 
+      c.firstName as childFirst, 
+      c.lastName as childLast, 
+      p.firstName as parentFirst, 
+      p.lastName as parentLast,
+      p.phone as parentPhone 
+    FROM income i 
+    LEFT JOIN children c ON i.childId = c.id 
+    LEFT JOIN child_parents cp ON c.id = cp.child_id 
+    LEFT JOIN parents p ON cp.parent_id = p.id 
+    WHERE i.status = 'pending' 
+    ORDER BY i.dueDate ASC
+  `);
+  return rows as any[];
 }

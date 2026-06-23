@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import fs from 'fs';
 import path from 'path';
 import PrintButton from './PrintButton';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default async function TuitionReceiptPage({ params }: { params: Promise<{ incomeId: string }> }) {
   const { incomeId } = await params;
@@ -47,10 +49,22 @@ export default async function TuitionReceiptPage({ params }: { params: Promise<{
       `}</style>
       
       <div className="max-w-3xl mx-auto p-12 print:p-0 print:max-w-none print:w-full bg-white text-slate-900 font-sans">
-        {/* Print Button (hidden when printing) */}
-        <div className="mb-10 text-right no-print">
-          <PrintButton />
-          <p className="text-xs text-slate-400 mt-2">Nota: Los encabezados de navegador se ocultan automáticamente al imprimir.</p>
+        {/* Top Actions (hidden when printing) */}
+        <div className="mb-10 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between no-print">
+          <Link 
+            href="/finance"
+            className="group inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-slate-200/80 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] hover:shadow-[0_8px_20px_-6px_rgba(6,81,237,0.12)] hover:border-indigo-100 hover:bg-indigo-50/50 transition-all duration-300 ease-out text-slate-600 hover:text-indigo-700 font-semibold text-sm"
+          >
+            <div className="bg-slate-100/80 group-hover:bg-indigo-100/80 text-slate-500 group-hover:text-indigo-600 p-1.5 rounded-xl transition-colors duration-300">
+              <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
+            </div>
+            Volver a Finanzas
+          </Link>
+
+          <div className="text-left sm:text-right">
+            <PrintButton />
+            <p className="text-xs text-slate-400 mt-2">Nota: Los encabezados de navegador se ocultan automáticamente al imprimir.</p>
+          </div>
         </div>
 
         {/* Invoice Header */}
@@ -170,8 +184,6 @@ export default async function TuitionReceiptPage({ params }: { params: Promise<{
           <p className="text-xs text-slate-400 mt-1">Conserve este documento para cualquier aclaración o trámite futuro.</p>
         </div>
 
-        {/* Auto print script */}
-        <script dangerouslySetInnerHTML={{ __html: 'window.onload = function() { window.print(); }' }} />
       </div>
     </>
   );

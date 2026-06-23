@@ -16,7 +16,15 @@ export async function getAttendanceByDate(date: string) {
 }
 
 export async function getActiveChildren() {
-  const [rows] = await db.query("SELECT id, firstName, lastName, photoUrl FROM children WHERE status = 'active' ORDER BY firstName");
+  const [rows] = await db.query(`
+    SELECT c.id, c.firstName, c.lastName, c.photoUrl,
+           (SELECT sp.schedule_days FROM child_subscriptions cs JOIN subscription_packages sp ON cs.package_id = sp.id WHERE cs.child_id = c.id ORDER BY cs.created_at DESC LIMIT 1) as schedule_days,
+           (SELECT sp.start_time FROM child_subscriptions cs JOIN subscription_packages sp ON cs.package_id = sp.id WHERE cs.child_id = c.id ORDER BY cs.created_at DESC LIMIT 1) as start_time,
+           (SELECT sp.end_time FROM child_subscriptions cs JOIN subscription_packages sp ON cs.package_id = sp.id WHERE cs.child_id = c.id ORDER BY cs.created_at DESC LIMIT 1) as end_time
+    FROM children c
+    WHERE c.status = 'active'
+    ORDER BY c.firstName
+  `);
   return rows as any[];
 }
 

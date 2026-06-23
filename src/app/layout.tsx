@@ -53,8 +53,12 @@ export default function RootLayout({
                 localStorage.setItem('last_auto_verano_date', todayStr);
               }
             }
+            var isAuto = localStorage.getItem('app_theme_auto') === 'true';
             var theme = localStorage.getItem('app_theme') || 'light';
-            document.documentElement.classList.remove('dark','theme-pink','theme-emerald','theme-violet','theme-ocean','theme-patrio','theme-valentin','theme-verano');
+            if (isAuto) {
+              theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.classList.remove('dark','theme-pink','theme-emerald','theme-violet','theme-ocean','theme-patrio','theme-valentin','theme-verano','theme-midnight','theme-sunset','theme-aurora');
             if (theme === 'dark') document.documentElement.classList.add('dark');
             else if (theme === 'pink') document.documentElement.classList.add('theme-pink');
             else if (theme === 'emerald') document.documentElement.classList.add('theme-emerald');
@@ -63,6 +67,9 @@ export default function RootLayout({
             else if (theme === 'patrio') document.documentElement.classList.add('theme-patrio');
             else if (theme === 'valentin') document.documentElement.classList.add('theme-valentin');
             else if (theme === 'verano') document.documentElement.classList.add('theme-verano');
+            else if (theme === 'midnight') document.documentElement.classList.add('theme-midnight');
+            else if (theme === 'sunset') document.documentElement.classList.add('theme-sunset');
+            else if (theme === 'aurora') document.documentElement.classList.add('theme-aurora');
           } catch (e) {}
         })()`} />
       </head>

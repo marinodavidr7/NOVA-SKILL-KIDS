@@ -25,6 +25,7 @@ import {
   HeartPulse,
   Bus,
   FileArchive,
+  GraduationCap,
 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useState, useEffect } from 'react'
@@ -48,6 +49,7 @@ const navigation: NavSection[] = [
     label: 'PRINCIPAL',
     items: [
       { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+      { name: 'Gestión Académica', href: '/academic', icon: GraduationCap },
       { name: 'Niños', href: '/children', icon: Baby },
       { name: 'Padres / Tutores', href: '/parents', icon: Users },
       { name: 'Egreso de Niños', href: '/discharges', icon: UserMinus },

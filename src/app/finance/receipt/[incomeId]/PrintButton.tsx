@@ -1,6 +1,16 @@
 'use client';
 
+import { useEffect } from 'react';
+
 export default function PrintButton() {
+  useEffect(() => {
+    // Small timeout ensures styles are applied before print dialog opens
+    const timer = setTimeout(() => {
+      window.print();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <button 
       onClick={() => window.print()} 

@@ -146,12 +146,14 @@ export async function getChildren() {
            m.allergies,
            p.firstName as tutorFirstName,
            p.lastName as tutorLastName,
-           cp.relationship as tutorRelationship
+           cp.relationship as tutorRelationship,
+           GROUP_CONCAT(cs.package_id) as activePackages
     FROM children c
     LEFT JOIN classrooms cls ON c.classroomId = cls.id
     LEFT JOIN medical_records m ON c.id = m.child_id
     LEFT JOIN child_parents cp ON c.id = cp.child_id AND cp.isEmergencyContact = 1
     LEFT JOIN parents p ON cp.parent_id = p.id
+    LEFT JOIN child_subscriptions cs ON c.id = cs.child_id
     GROUP BY c.id
     ORDER BY c.createdAt DESC
   `;

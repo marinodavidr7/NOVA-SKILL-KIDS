@@ -180,6 +180,30 @@ export default function Header({ onMenuClick }: { onMenuClick?: () => void }) {
             </span>
           </div>
         )}
+        {theme === 'midnight' && (
+          <div className="flex items-center gap-2.5 bg-[#1a1b26]/90 border border-amber-500/30 rounded-xl px-3 py-1.5 shadow-[0_0_15px_rgba(245,158,11,0.2)] backdrop-blur-sm hover:scale-[1.02] transition-all duration-200 cursor-default select-none">
+            <span className="text-base animate-pulse text-amber-400">✨</span>
+            <span className="text-xs font-black tracking-wider uppercase bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-500 bg-clip-text text-transparent">
+              Premium
+            </span>
+          </div>
+        )}
+        {theme === 'sunset' && (
+          <div className="flex items-center gap-2.5 bg-[#4a0404]/80 border border-orange-500/30 rounded-xl px-3 py-1.5 shadow-[0_0_15px_rgba(249,115,22,0.2)] backdrop-blur-sm hover:scale-[1.02] transition-all duration-200 cursor-default select-none">
+            <span className="text-base animate-pulse">🌅</span>
+            <span className="text-xs font-black tracking-wider uppercase bg-gradient-to-r from-orange-300 via-rose-300 to-red-400 bg-clip-text text-transparent">
+              Sunset Horizon
+            </span>
+          </div>
+        )}
+        {theme === 'aurora' && (
+          <div className="flex items-center gap-2.5 bg-[#0f172a]/90 border border-cyan-500/30 rounded-xl px-3 py-1.5 shadow-[0_0_15px_rgba(6,182,212,0.2)] backdrop-blur-sm hover:scale-[1.02] transition-all duration-200 cursor-default select-none">
+            <span className="text-base animate-pulse">🌌</span>
+            <span className="text-xs font-black tracking-wider uppercase bg-gradient-to-r from-cyan-300 via-teal-300 to-purple-400 bg-clip-text text-transparent">
+              Aurora Neon
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Right — Actions & User */}

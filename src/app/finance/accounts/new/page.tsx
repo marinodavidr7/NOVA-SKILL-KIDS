@@ -40,6 +40,7 @@ export default function NewAccountPage() {
   const [bankSelection, setBankSelection] = useState('');
   const [customBankName, setCustomBankName] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
+  const [bankAccountType, setBankAccountType] = useState('Ahorro');
   const [currency, setCurrency] = useState('DOP');
   const [balance, setBalance] = useState('0');
   const [isSaving, setIsSaving] = useState(false);
@@ -63,7 +64,8 @@ export default function NewAccountPage() {
         currency: currency,
         accountNumber: type === 'bank' ? accountNumber : '',
         bankName: finalBankName,
-        balance: parseFloat(balance) || 0
+        balance: parseFloat(balance) || 0,
+        bankAccountType: type === 'bank' ? bankAccountType : undefined
       });
 
       if (res.success) {
@@ -151,6 +153,18 @@ export default function NewAccountPage() {
                     placeholder="XXXX-XXXX-XXXX" 
                     className="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-800 rounded-xl"
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="bankAccountType" className="text-slate-700 dark:text-slate-300">Tipo de Cuenta Bancaria</Label>
+                  <select 
+                    id="bankAccountType" 
+                    value={bankAccountType}
+                    onChange={e => setBankAccountType(e.target.value)}
+                    className="w-full h-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  >
+                    <option value="Ahorro">Ahorro</option>
+                    <option value="Corriente">Corriente</option>
+                  </select>
                 </div>
               </div>
             )}

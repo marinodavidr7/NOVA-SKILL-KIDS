@@ -19,18 +19,19 @@ export async function getAccounts() {
   }
 }
 
-export async function createAccount(data: { name: string; type: string; currency: string; accountNumber?: string; bankName?: string; balance?: number }) {
+export async function createAccount(data: { name: string; type: string; currency: string; accountNumber?: string; bankName?: string; balance?: number; bankAccountType?: string }) {
   try {
     const [result] = await db.execute(`
-      INSERT INTO finance_accounts (name, type, currency, accountNumber, bankName, balance)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO finance_accounts (name, type, currency, accountNumber, bankName, balance, bankAccountType)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
     `, [
       data.name,
       data.type,
       data.currency || 'DOP',
       data.accountNumber || null,
       data.bankName || null,
-      data.balance || 0
+      data.balance || 0,
+      data.bankAccountType || null
     ]);
     revalidatePath('/finance');
     revalidatePath('/finance/accounts');
@@ -716,10 +717,33 @@ export async function getIncomeStatement(startDate: string, endDate: string) {
 export async function getRecentTransactions(limit = 5) {
   try {
     const [rows] = await db.query(`
-      SELECT t.*, a.name as accountName 
+      SELECT 
+        CONCAT('tx-', t.id) as id, 
+        t.accountId, 
+        t.type, 
+        t.amount, 
+        t.date, 
+        t.description, 
+        t.category, 
+        a.name as accountName 
       FROM finance_transactions t
       LEFT JOIN finance_accounts a ON t.accountId = a.id
-      ORDER BY t.date DESC, t.id DESC
+      
+      UNION ALL
+      
+      SELECT 
+        CONCAT('pr-', id) as id, 
+        NULL as accountId, 
+        'out' as type, 
+        netPay as amount, 
+        paymentDate as date, 
+        'Pago de Nómina' as description, 
+        'Nómina' as category, 
+        'Caja General' as accountName
+      FROM staff_payroll
+      WHERE status = 'paid'
+      
+      ORDER BY date DESC, id DESC
       LIMIT ?
     `, [limit]);
     return rows as any[];
@@ -743,7 +767,7 @@ export async function getExpensesByCategory(period: string) {
   }
 }
 
-export async function updateAccount(id: number, data: { name: string; accountNumber?: string; bankName?: string; currency: string }) {
+export async function updateAccount(id: number, data: { name: string; accountNumber?: string; bankName?: string; currency: string; bankAccountType?: string }) {
   try {
     await db.execute(`
       UPDATE finance_accounts 
@@ -751,9 +775,10 @@ export async function updateAccount(id: number, data: { name: string; accountNum
         name = ?, 
         accountNumber = ?, 
         bankName = ?, 
-        currency = ?
+        currency = ?,
+        bankAccountType = ?
       WHERE id = ?
-    `, [data.name, data.accountNumber || null, data.bankName || null, data.currency, id]);
+    `, [data.name, data.accountNumber || null, data.bankName || null, data.currency, data.bankAccountType || null, id]);
 
     revalidatePath('/finance');
     revalidatePath('/finance/accounts');

@@ -11,7 +11,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
   
   const [year, monthStr] = currentMonth.split('-');
   const dateObj = new Date(parseInt(year), parseInt(monthStr) - 1, 1);
-  const displayMonth = new Intl.DateTimeFormat('es-MX', { month: 'long', year: 'numeric' }).format(dateObj);
+  const displayMonth = new Intl.DateTimeFormat('es-DO', { month: 'long', year: 'numeric' }).format(dateObj);
 
   const reportData = await getIncomeReport(currentMonth);
 
@@ -72,7 +72,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
               <p className="text-lg font-bold text-slate-800 capitalize">{displayMonth}</p>
               
               <p className="text-xs text-slate-500 mt-2">
-                Generado el: {new Intl.DateTimeFormat('es-MX', { dateStyle: 'long' }).format(now)}
+                Generado el: {new Intl.DateTimeFormat('es-DO', { dateStyle: 'long' }).format(now)}
               </p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
                   <tr key={item.id || index} className="border-b border-slate-200 last:border-b-0">
                     
       <td className="py-3 px-4 text-slate-500">{index + 1}</td>
-      <td className="py-3 px-4 text-slate-600">{new Date(item.date).toLocaleDateString('es-MX')}</td>
+      <td className="py-3 px-4 text-slate-600">{new Date(item.date).toLocaleDateString('es-DO')}</td>
       <td className="py-3 px-4 font-medium text-slate-900">{item.description}</td>
       <td className="py-3 px-4 font-bold text-emerald-600">${item.amount.toLocaleString()}</td>
       <td className="py-3 px-4 text-slate-600">{item.paymentMethod}</td>

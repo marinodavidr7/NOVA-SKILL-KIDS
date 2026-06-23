@@ -46,7 +46,7 @@ const recentActivities = [
 
 function getFormattedDate(): string {
   const now = new Date();
-  const formatter = new Intl.DateTimeFormat("es-MX", {
+  const formatter = new Intl.DateTimeFormat("es-DO", {
     weekday: "long",
     year: "numeric",
     month: "long",

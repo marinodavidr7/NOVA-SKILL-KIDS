@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight, Loader2 } from 'lucide-react';
 import { loginWithPin, loginWithPassword, getUsersForSwitcher } from '@/lib/actions/auth';
 
-type ThemeKey = 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano';
+type ThemeKey = 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora';
 
 const themeConfigs: Record<ThemeKey, { bg: string; bloom1: string; bloom2: string; heading: string }> = {
   verano: {
@@ -64,6 +64,24 @@ const themeConfigs: Record<ThemeKey, { bg: string; bloom1: string; bloom2: strin
     bloom1: "bg-blue-600/30",
     bloom2: "bg-violet-600/20",
     heading: "from-violet-300 via-indigo-200 to-blue-300"
+  },
+  midnight: {
+    bg: "bg-gradient-to-br from-[#0f111a] via-[#1a1b26] to-[#0a0c10]",
+    bloom1: "bg-amber-600/15",
+    bloom2: "bg-amber-400/10",
+    heading: "from-amber-200 via-amber-400 to-yellow-500"
+  },
+  sunset: {
+    bg: "bg-gradient-to-br from-[#4a0404] via-[#7c1d1d] to-[#c2410c]",
+    bloom1: "bg-orange-500/30",
+    bloom2: "bg-rose-500/25",
+    heading: "from-orange-200 via-orange-400 to-rose-400"
+  },
+  aurora: {
+    bg: "bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#1e1b4b]",
+    bloom1: "bg-cyan-500/25",
+    bloom2: "bg-purple-500/25",
+    heading: "from-cyan-300 via-teal-200 to-purple-400"
   }
 };
 
@@ -119,11 +137,12 @@ export default function LoginPage() {
       const activeTheme = (localStorage.getItem('app_theme') as ThemeKey) || 'light';
       setTheme(activeTheme);
 
-      document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano');
+      document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano', 'theme-midnight', 'theme-sunset', 'theme-aurora');
       const classMap: Record<string, string> = {
         dark: 'dark', pink: 'theme-pink', emerald: 'theme-emerald',
         violet: 'theme-violet', ocean: 'theme-ocean', patrio: 'theme-patrio',
-        valentin: 'theme-valentin', verano: 'theme-verano'
+        valentin: 'theme-valentin', verano: 'theme-verano',
+        midnight: 'theme-midnight', sunset: 'theme-sunset', aurora: 'theme-aurora'
       };
       if (classMap[activeTheme]) document.documentElement.classList.add(classMap[activeTheme]);
     }

@@ -81,7 +81,7 @@ export default function CommunicationsPage() {
       try {
         const todayStr = new Date().toISOString().split('T')[0];
         const menus = await getMenusByDate(todayStr);
-        let text = `🍎 *Menú del Día (${new Intl.DateTimeFormat('es-MX', { dateStyle: 'long'}).format(new Date())})* 🍎\n\n`;
+        let text = `🍎 *Menú del Día (${new Intl.DateTimeFormat('es-DO', { dateStyle: 'long'}).format(new Date())})* 🍎\n\n`;
         if (menus.length === 0) {
           text += 'Aún no hay menú registrado para hoy.';
         } else {
@@ -105,12 +105,12 @@ export default function CommunicationsPage() {
       try {
         const dates = getWeekDates();
         let text = `📅 *Menú Semanal Nova Skill Kids* 📅\n`;
-        text += `Del ${new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long'}).format(dates[0])} al ${new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long'}).format(dates[4])}\n\n`;
+        text += `Del ${new Intl.DateTimeFormat('es-DO', { day: 'numeric', month: 'long'}).format(dates[0])} al ${new Intl.DateTimeFormat('es-DO', { day: 'numeric', month: 'long'}).format(dates[4])}\n\n`;
 
         for (const d of dates) {
           const dateStr = d.toISOString().split('T')[0];
           const menus = await getMenusByDate(dateStr);
-          const dayName = new Intl.DateTimeFormat('es-MX', { weekday: 'long' }).format(d);
+          const dayName = new Intl.DateTimeFormat('es-DO', { weekday: 'long' }).format(d);
           
           text += `*${dayName.toUpperCase()} ${d.getDate()}*\n`;
           if (menus.length === 0) {

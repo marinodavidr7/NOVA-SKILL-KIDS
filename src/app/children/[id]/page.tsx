@@ -10,6 +10,8 @@ import { ArrowLeft, Baby, Edit, Phone, Mail, MapPin, HeartPulse, ShieldAlert, Fi
 import MedicalRecordsTab from "@/components/children/MedicalRecordsTab";
 import EntityDocumentsCard from "@/components/documents/EntityDocumentsCard";
 import ObservationsModal from "@/components/children/ObservationsModal";
+import ChildSubscriptionsCard from "@/components/children/ChildSubscriptionsCard";
+import { getChildSubscriptions, getChildIncomes, getPackages } from "@/lib/actions/subscriptions";
 
 export default async function ChildProfilePage({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ from?: string }> }) {
   const { id } = await params;
@@ -23,6 +25,10 @@ export default async function ChildProfilePage({ params, searchParams }: { param
   
   const categories = await getCategories();
   const category = categories.find((c: any) => c.name === 'Estudiantes');
+
+  const subscriptions = await getChildSubscriptions(childId);
+  const incomes = await getChildIncomes(childId);
+  const availablePackages = await getPackages() as any;
 
   if (!data) {
     return <div className="p-8 text-center text-muted-foreground">Niño no encontrado</div>;
@@ -459,6 +465,8 @@ export default async function ChildProfilePage({ params, searchParams }: { param
           </CardContent>
         </Card>
       </div>
+
+      <ChildSubscriptionsCard childId={childId} subscriptions={subscriptions as any[]} incomes={incomes as any[]} availablePackages={availablePackages as any[]} />
 
       {/* Documents Section */}
       <EntityDocumentsCard 

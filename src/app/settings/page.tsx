@@ -109,30 +109,44 @@ export default function SettingsPage() {
     reader.readAsDataURL(file);
   };
 
-  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano'>('light');
+  const [currentTheme, setCurrentTheme] = useState<'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora'>('light');
+  const [isAutoTheme, setIsAutoTheme] = useState(false);
 
-  const handleThemeChange = (newTheme: 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano') => {
+  const applyThemeClasses = (theme: string) => {
+    document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano', 'theme-midnight', 'theme-sunset', 'theme-aurora');
+    if (theme === 'dark') document.documentElement.classList.add('dark');
+    else if (theme === 'pink') document.documentElement.classList.add('theme-pink');
+    else if (theme === 'emerald') document.documentElement.classList.add('theme-emerald');
+    else if (theme === 'violet') document.documentElement.classList.add('theme-violet');
+    else if (theme === 'ocean') document.documentElement.classList.add('theme-ocean');
+    else if (theme === 'patrio') document.documentElement.classList.add('theme-patrio');
+    else if (theme === 'valentin') document.documentElement.classList.add('theme-valentin');
+    else if (theme === 'verano') document.documentElement.classList.add('theme-verano');
+    else if (theme === 'midnight') document.documentElement.classList.add('theme-midnight');
+    else if (theme === 'sunset') document.documentElement.classList.add('theme-sunset');
+    else if (theme === 'aurora') document.documentElement.classList.add('theme-aurora');
+  };
+
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora') => {
     setCurrentTheme(newTheme);
+    setIsAutoTheme(false);
     localStorage.setItem("app_theme", newTheme);
-    document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano');
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (newTheme === 'pink') {
-      document.documentElement.classList.add('theme-pink');
-    } else if (newTheme === 'emerald') {
-      document.documentElement.classList.add('theme-emerald');
-    } else if (newTheme === 'violet') {
-      document.documentElement.classList.add('theme-violet');
-    } else if (newTheme === 'ocean') {
-      document.documentElement.classList.add('theme-ocean');
-    } else if (newTheme === 'patrio') {
-      document.documentElement.classList.add('theme-patrio');
-    } else if (newTheme === 'valentin') {
-      document.documentElement.classList.add('theme-valentin');
-    } else if (newTheme === 'verano') {
-      document.documentElement.classList.add('theme-verano');
-    }
+    localStorage.setItem("app_theme_auto", "false");
+    applyThemeClasses(newTheme);
     // Notify root AppShell to update layout and prevent react from resetting it
+    window.dispatchEvent(new Event('theme-changed'));
+  };
+
+  const handleAutoThemeToggle = (checked: boolean) => {
+    setIsAutoTheme(checked);
+    localStorage.setItem("app_theme_auto", checked ? "true" : "false");
+    
+    if (checked) {
+      const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyThemeClasses(isSystemDark ? 'dark' : 'light');
+    } else {
+      applyThemeClasses(currentTheme);
+    }
     window.dispatchEvent(new Event('theme-changed'));
   };
 
@@ -171,8 +185,21 @@ export default function SettingsPage() {
 
   // Load from database on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem("app_theme") as 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano';
+    const savedTheme = localStorage.getItem("app_theme") as 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora';
     if (savedTheme) setCurrentTheme(savedTheme);
+
+    const isAuto = localStorage.getItem("app_theme_auto") === "true";
+    setIsAutoTheme(isAuto);
+
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      if (localStorage.getItem("app_theme_auto") === "true") {
+        applyThemeClasses(e.matches ? 'dark' : 'light');
+        window.dispatchEvent(new Event('theme-changed'));
+      }
+    };
+    
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', handleSystemThemeChange);
 
     const savedNotifs = localStorage.getItem("settings_notifs");
     if (savedNotifs) setNotifSettings(JSON.parse(savedNotifs));
@@ -980,12 +1007,26 @@ export default function SettingsPage() {
                 <CardDescription className="text-slate-500 dark:text-slate-400">Personaliza los colores y el tema de la aplicación.</CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
+                <div className="flex items-center justify-between p-4 mb-6 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                  <div>
+                    <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200">Ajustar al sistema (Automático)</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">El tema cambiará automáticamente entre claro y oscuro según tu dispositivo.</p>
+                  </div>
+                  <div 
+                    onClick={() => handleAutoThemeToggle(!isAutoTheme)}
+                    className={`w-11 h-6 rounded-full relative cursor-pointer transition-colors duration-200 ${isAutoTheme ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'}`}
+                  >
+                    <div className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full shadow-sm transition-transform duration-200 ${isAutoTheme ? 'transform translate-x-5' : ''}`} />
+                  </div>
+                </div>
+                
+                <h4 className="text-sm font-medium text-slate-800 dark:text-slate-200 mb-4">Selecciona un tema fijo</h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                   {/* Modo Claro */}
                   <div 
                     onClick={() => handleThemeChange('light')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'light' 
+                      !isAutoTheme && currentTheme === 'light' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1004,7 +1045,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('dark')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'dark' 
+                      !isAutoTheme && currentTheme === 'dark' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1023,7 +1064,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('pink')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'pink' 
+                      !isAutoTheme && currentTheme === 'pink' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1042,7 +1083,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('emerald')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'emerald' 
+                      !isAutoTheme && currentTheme === 'emerald' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1061,7 +1102,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('violet')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'violet' 
+                      !isAutoTheme && currentTheme === 'violet' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1080,7 +1121,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('ocean')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'ocean' 
+                      !isAutoTheme && currentTheme === 'ocean' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1099,7 +1140,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('patrio')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'patrio' 
+                      !isAutoTheme && currentTheme === 'patrio' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1118,7 +1159,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('valentin')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'valentin' 
+                      !isAutoTheme && currentTheme === 'valentin' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1137,7 +1178,7 @@ export default function SettingsPage() {
                   <div 
                     onClick={() => handleThemeChange('verano')}
                     className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
-                      currentTheme === 'verano' 
+                      !isAutoTheme && currentTheme === 'verano' 
                         ? 'border-emerald-600 ring-2 ring-emerald-500/25 bg-emerald-50/5' 
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
                     }`}
@@ -1150,6 +1191,63 @@ export default function SettingsPage() {
                       </div>
                     </div>
                     <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Modo Verano ☀️</p>
+                  </div>
+
+                  {/* Modo Midnight Premium */}
+                  <div 
+                    onClick={() => handleThemeChange('midnight')}
+                    className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
+                      !isAutoTheme && currentTheme === 'midnight' 
+                        ? 'border-amber-500 ring-2 ring-amber-500/25 bg-amber-50/5' 
+                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
+                    }`}
+                  >
+                    <div className="w-full h-16 bg-[#1a1b26] rounded-lg mb-3 shadow-inner flex overflow-hidden border border-slate-800">
+                      <div className="w-1/3 bg-[#16161e] h-full border-r border-slate-800/50"></div>
+                      <div className="w-2/3 flex flex-col p-2 gap-1 bg-[#1a1b26]">
+                        <div className="w-full h-2 bg-amber-400/80 rounded"></div>
+                        <div className="w-1/2 h-2 bg-slate-500/40 rounded"></div>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Midnight Premium ✨</p>
+                  </div>
+
+                  {/* Modo Sunset Horizon */}
+                  <div 
+                    onClick={() => handleThemeChange('sunset')}
+                    className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
+                      !isAutoTheme && currentTheme === 'sunset' 
+                        ? 'border-orange-500 ring-2 ring-orange-500/25 bg-orange-50/5' 
+                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
+                    }`}
+                  >
+                    <div className="w-full h-16 bg-orange-50/50 rounded-lg mb-3 shadow-inner flex overflow-hidden border border-orange-200/50">
+                      <div className="w-1/3 bg-gradient-to-b from-orange-500 to-rose-600 h-full"></div>
+                      <div className="w-2/3 flex flex-col p-2 gap-1 bg-orange-50/30 dark:bg-slate-900">
+                        <div className="w-full h-2 bg-orange-400 rounded"></div>
+                        <div className="w-1/2 h-2 bg-orange-200 rounded"></div>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Sunset Horizon 🌅</p>
+                  </div>
+
+                  {/* Modo Aurora */}
+                  <div 
+                    onClick={() => handleThemeChange('aurora')}
+                    className={`border-2 p-4 rounded-xl cursor-pointer text-center transition-all ${
+                      !isAutoTheme && currentTheme === 'aurora' 
+                        ? 'border-cyan-500 ring-2 ring-cyan-500/25 bg-cyan-50/5' 
+                        : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50/50 dark:hover:bg-slate-800/30'
+                    }`}
+                  >
+                    <div className="w-full h-16 bg-[#0f172a] rounded-lg mb-3 shadow-inner flex overflow-hidden border border-slate-800">
+                      <div className="w-1/3 bg-gradient-to-b from-[#0f172a] to-[#1e1b4b] h-full border-r border-slate-800/50"></div>
+                      <div className="w-2/3 flex flex-col p-2 gap-1 bg-[#0f172a]">
+                        <div className="w-full h-2 bg-cyan-400/90 rounded"></div>
+                        <div className="w-1/2 h-2 bg-purple-400/60 rounded"></div>
+                      </div>
+                    </div>
+                    <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Aurora Neon 🌌</p>
                   </div>
                 </div>
               </CardContent>

@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .theme-midnight *, .theme-aurora *));
 
 @theme inline {
   --color-background: var(--background);
@@ -869,8 +869,325 @@
 }
 
 
+/* ── Apariencia Midnight Gold (Premium Dark Theme) ── */
+.theme-midnight {
+  --background: oklch(0.12 0.01 260); /* Very dark blue-gray */
+  --foreground: oklch(0.95 0.02 70); /* Warm off-white */
+  
+  --card: oklch(0.15 0.01 260); 
+  --card-foreground: oklch(0.95 0.02 70);
+  
+  --popover: oklch(0.15 0.01 260);
+  --popover-foreground: oklch(0.95 0.02 70);
+  
+  --primary: oklch(0.75 0.15 70); /* Premium Gold */
+  --primary-foreground: oklch(0.12 0.01 260); /* Dark text on gold */
+  
+  --secondary: oklch(0.20 0.02 260);
+  --secondary-foreground: oklch(0.95 0.02 70);
+  
+  --muted: oklch(0.20 0.02 260);
+  --muted-foreground: oklch(0.65 0.05 70);
+  
+  --accent: oklch(0.22 0.03 260);
+  --accent-foreground: oklch(0.85 0.12 70);
+  
+  --destructive: oklch(0.65 0.20 20);
+  
+  --border: oklch(0.25 0.02 260);
+  --input: oklch(0.20 0.02 260);
+  --ring: oklch(0.75 0.15 70);
+  
+  --sidebar-primary: oklch(0.75 0.15 70);
+  --sidebar-ring: oklch(0.75 0.15 70);
+}
+
+.theme-midnight aside {
+  background: linear-gradient(to bottom, oklch(0.10 0.02 260), oklch(0.14 0.02 260)) !important;
+  color: oklch(0.95 0.02 70) !important;
+  border-right: 1px solid oklch(0.25 0.02 260) !important;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.4) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.85 0.12 70) !important; /* Gold title */
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.75 0.15 70) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.60 0.05 70) !important;
+  }
+
+  a {
+    color: oklch(0.80 0.04 70) !important;
+    &:hover {
+      background-color: oklch(0.75 0.15 70 / 10%) !important;
+      color: oklch(0.85 0.12 70) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.75 0.15 70 / 15%), oklch(0.75 0.15 70 / 5%)) !important;
+    color: oklch(0.85 0.12 70) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.60 0.05 70) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.75 0.15 70 / 20%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.85 0.12 70) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.85 0.12 70), oklch(0.75 0.15 70)) !important;
+    box-shadow: 0 1px 4px oklch(0.85 0.12 70 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.35 0.02 260), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.75 0.15 70 / 5%) !important;
+    border: 1px solid oklch(0.75 0.15 70 / 15%) !important;
+    
+    &:hover {
+      background-color: oklch(0.75 0.15 70 / 10%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.95 0.02 70) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.65 0.05 70) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.65 0.05 70) !important;
+    &:hover {
+      background-color: oklch(0.75 0.15 70 / 10%) !important;
+      color: oklch(0.85 0.12 70) !important;
+    }
+  }
+}
+
+/* ── Apariencia Sunset Horizon (Sunset Theme) ── */
+.theme-sunset {
+  --primary: oklch(0.65 0.20 30); /* Vibrant Orange/Red */
+  --primary-foreground: oklch(0.99 0 0);
+  --ring: oklch(0.65 0.20 30);
+  
+  --background: oklch(0.99 0.01 40); /* Soft warm white */
+  --card: oklch(1 0 0);
+  --popover: oklch(1 0 0);
+  
+  --border: oklch(0.93 0.02 30);
+  --input: oklch(0.93 0.02 30);
+  
+  --sidebar-primary: oklch(0.65 0.20 30);
+  --sidebar-ring: oklch(0.65 0.20 30);
+  
+  --accent: oklch(0.95 0.03 40);
+  --accent-foreground: oklch(0.40 0.15 30);
+}
+
+.theme-sunset aside {
+  background: linear-gradient(to bottom, oklch(0.65 0.20 30), oklch(0.50 0.20 330)) !important; /* Orange to Purple gradient */
+  color: oklch(0.99 0 0) !important;
+  border-right: none !important;
+  box-shadow: 2px 0 15px oklch(0.50 0.20 330 / 20%) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.99 0 0) !important;
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.90 0.05 40) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.95 0.02 40 / 70%) !important;
+  }
+
+  a {
+    color: oklch(0.95 0.02 40) !important;
+    &:hover {
+      background-color: oklch(1 0 0 / 10%) !important;
+      color: oklch(1 0 0) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(1 0 0 / 15%), oklch(1 0 0 / 5%)) !important;
+    color: oklch(1 0 0) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.95 0.02 40 / 60%) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(1 0 0 / 20%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.99 0 0) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: oklch(1 0 0) !important;
+    box-shadow: 0 1px 4px oklch(1 0 0 / 50%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(1 0 0 / 30%), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(1 0 0 / 8%) !important;
+    border: 1px solid oklch(1 0 0 / 20%) !important;
+    
+    &:hover {
+      background-color: oklch(1 0 0 / 12%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(1 0 0) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.95 0.02 40 / 70%) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.95 0.02 40 / 70%) !important;
+    &:hover {
+      background-color: oklch(1 0 0 / 12%) !important;
+      color: oklch(1 0 0) !important;
+    }
+  }
+}
+
+/* ── Apariencia Aurora Neon (Neon Dark Theme) ── */
+.theme-aurora {
+  --background: oklch(0.10 0.02 230); /* Deep forest/ocean night */
+  --foreground: oklch(0.95 0.02 200); /* Cyan-tinted white */
+  
+  --card: oklch(0.14 0.03 230); 
+  --card-foreground: oklch(0.95 0.02 200);
+  
+  --popover: oklch(0.14 0.03 230);
+  --popover-foreground: oklch(0.95 0.02 200);
+  
+  --primary: oklch(0.80 0.20 160); /* Neon Green/Cyan */
+  --primary-foreground: oklch(0.10 0.02 230); 
+  
+  --secondary: oklch(0.20 0.05 230);
+  --secondary-foreground: oklch(0.90 0.10 160);
+  
+  --muted: oklch(0.18 0.04 230);
+  --muted-foreground: oklch(0.65 0.08 200);
+  
+  --accent: oklch(0.25 0.10 280); /* Neon Purple accent */
+  --accent-foreground: oklch(0.90 0.15 280);
+  
+  --destructive: oklch(0.65 0.20 20);
+  
+  --border: oklch(0.25 0.05 230);
+  --input: oklch(0.20 0.05 230);
+  --ring: oklch(0.80 0.20 160);
+  
+  --sidebar-primary: oklch(0.80 0.20 160);
+  --sidebar-ring: oklch(0.80 0.20 160);
+}
+
+.theme-aurora aside {
+  background: linear-gradient(to bottom, oklch(0.12 0.04 230), oklch(0.10 0.02 280)) !important;
+  color: oklch(0.90 0.05 200) !important;
+  border-right: 1px solid oklch(0.25 0.05 230) !important;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.5) !important;
+
+  h1.text-white {
+    background: none !important;
+    color: oklch(0.80 0.20 160) !important; /* Neon Green title */
+    text-shadow: 0 0 10px oklch(0.80 0.20 160 / 30%);
+    -webkit-text-fill-color: initial !important;
+  }
+  p.text-primary {
+    color: oklch(0.70 0.15 160) !important;
+  }
+  h3.text-slate-500 {
+    color: oklch(0.55 0.08 200) !important;
+  }
+
+  a {
+    color: oklch(0.80 0.05 200) !important;
+    &:hover {
+      background-color: oklch(0.80 0.20 160 / 10%) !important;
+      color: oklch(0.90 0.15 160) !important;
+    }
+  }
+
+  a.bg-gradient-to-r.from-violet-500\/15 {
+    background: linear-gradient(to right, oklch(0.80 0.20 160 / 15%), oklch(0.60 0.25 280 / 10%)) !important;
+    color: oklch(0.90 0.15 160) !important;
+    border-left: 2px solid oklch(0.80 0.20 160) !important;
+  }
+
+  span.text-slate-500 {
+    color: oklch(0.55 0.08 200) !important;
+  }
+
+  span.bg-violet-500\/20 {
+    background-color: oklch(0.80 0.20 160 / 15%) !important;
+  }
+  span.text-violet-300 {
+    color: oklch(0.80 0.20 160) !important;
+  }
+
+  span.absolute.left-0.top-1\/2.h-5.w-\[3px\] {
+    background: linear-gradient(to bottom, oklch(0.80 0.20 160), oklch(0.60 0.25 280)) !important;
+    box-shadow: 0 0 8px oklch(0.80 0.20 160 / 60%) !important;
+  }
+
+  .bg-gradient-to-r.via-slate-800,
+  .bg-gradient-to-r.via-slate-700\/50 {
+    background: linear-gradient(to right, transparent, oklch(0.35 0.08 230), transparent) !important;
+  }
+
+  .bg-white\/\[0\.04\] {
+    background-color: oklch(0.80 0.20 160 / 5%) !important;
+    border: 1px solid oklch(0.80 0.20 160 / 15%) !important;
+    
+    &:hover {
+      background-color: oklch(0.80 0.20 160 / 10%) !important;
+      border-color: oklch(0.60 0.25 280 / 30%) !important;
+    }
+  }
+  p.text-slate-200 {
+    color: oklch(0.95 0.02 200) !important;
+  }
+  p.text-slate-500 {
+    color: oklch(0.65 0.08 200) !important;
+  }
+  
+  a.text-slate-600 {
+    color: oklch(0.65 0.08 200) !important;
+    &:hover {
+      background-color: oklch(0.80 0.20 160 / 10%) !important;
+      color: oklch(0.90 0.15 160) !important;
+    }
+  }
+}
+
 /* ── Dark Mode Content Color Fixes ── */
-.dark {
+:is(.dark, .theme-midnight, .theme-aurora) {
   /* Convert white/light backgrounds to dark card/bg colors */
   .bg-white,
   .bg-white\/95,

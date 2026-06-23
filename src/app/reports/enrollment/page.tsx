@@ -11,7 +11,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
   
   const [year, monthStr] = currentMonth.split('-');
   const dateObj = new Date(parseInt(year), parseInt(monthStr) - 1, 1);
-  const displayMonth = new Intl.DateTimeFormat('es-MX', { month: 'long', year: 'numeric' }).format(dateObj);
+  const displayMonth = new Intl.DateTimeFormat('es-DO', { month: 'long', year: 'numeric' }).format(dateObj);
 
   const reportData = await getEnrollmentReport();
 
@@ -59,7 +59,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
               <p className="text-lg font-bold text-slate-800 capitalize">Actual</p>
               
               <p className="text-xs text-slate-500 mt-2">
-                Generado el: {new Intl.DateTimeFormat('es-MX', { dateStyle: 'long' }).format(now)}
+                Generado el: {new Intl.DateTimeFormat('es-DO', { dateStyle: 'long' }).format(now)}
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default async function ReportPage({ searchParams }: { searchParams: { mon
                     
       <td className="py-3 px-4 text-slate-500">{index + 1}</td>
       <td className="py-3 px-4 font-medium text-slate-900">{item.firstName} {item.lastName}</td>
-      <td className="py-3 px-4 text-slate-600">{item.dateOfBirth ? new Date(item.dateOfBirth).toLocaleDateString('es-MX') : 'N/A'}</td>
+      <td className="py-3 px-4 text-slate-600">{item.dateOfBirth ? new Date(item.dateOfBirth).toLocaleDateString('es-DO') : 'N/A'}</td>
       <td className="py-3 px-4 text-slate-600 capitalize">{item.gender}</td>
       <td className="py-3 px-4 font-semibold text-indigo-600">{item.classroomName || 'Sin asignar'}</td>
     

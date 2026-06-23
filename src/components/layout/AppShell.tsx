@@ -12,7 +12,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isLogin = pathname === '/login';
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora'>('light');
 
   // Close mobile menu when pathname changes
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         }
       }
 
-      const savedTheme = localStorage.getItem('app_theme') as 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano';
+      const savedTheme = localStorage.getItem('app_theme') as 'light' | 'dark' | 'pink' | 'emerald' | 'violet' | 'ocean' | 'patrio' | 'valentin' | 'verano' | 'midnight' | 'sunset' | 'aurora';
       if (savedTheme) {
         setTheme(savedTheme);
       }
@@ -80,7 +80,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   // Update root classes when theme state changes
   useEffect(() => {
-    document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano');
+    document.documentElement.classList.remove('dark', 'theme-pink', 'theme-emerald', 'theme-violet', 'theme-ocean', 'theme-patrio', 'theme-valentin', 'theme-verano', 'theme-midnight', 'theme-sunset', 'theme-aurora');
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else if (theme === 'pink') {
@@ -97,6 +97,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.add('theme-valentin');
     } else if (theme === 'verano') {
       document.documentElement.classList.add('theme-verano');
+    } else if (theme === 'midnight') {
+      document.documentElement.classList.add('theme-midnight');
+    } else if (theme === 'sunset') {
+      document.documentElement.classList.add('theme-sunset');
+    } else if (theme === 'aurora') {
+      document.documentElement.classList.add('theme-aurora');
     }
   }, [theme]);
 

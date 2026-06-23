@@ -84,7 +84,7 @@ export default function ParentsClient({ parents }: { parents: Parent[] }) {
       Email: p.email ?? '',
       Dirección: p.address ?? '',
       'Fecha Registro': p.createdAt
-        ? new Date(p.createdAt).toLocaleDateString('es-MX', {
+        ? new Date(p.createdAt).toLocaleDateString('es-DO', {
             day: '2-digit', month: 'short', year: 'numeric',
           })
         : '',
@@ -261,7 +261,7 @@ export default function ParentsClient({ parents }: { parents: Parent[] }) {
                     parent.lastName?.[0] ?? ''
                   ).toUpperCase()}`;
                   const createdAt = parent.createdAt
-                    ? new Date(parent.createdAt).toLocaleDateString('es-MX', {
+                    ? new Date(parent.createdAt).toLocaleDateString('es-DO', {
                         day: '2-digit', month: 'short', year: 'numeric',
                       })
                     : '—';

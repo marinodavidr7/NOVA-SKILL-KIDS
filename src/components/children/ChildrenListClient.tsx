@@ -244,7 +244,7 @@ export default function ChildrenListClient({ childrenData, canRegisterChild }: C
                         </div>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {birthDate.toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' })}
+                        {birthDate.toLocaleDateString('es-DO', { day: '2-digit', month: 'short', year: 'numeric' })}
                       </TableCell>
                       <TableCell>
                         <span className="font-medium">{age} {age === 1 ? 'año' : 'años'}</span>

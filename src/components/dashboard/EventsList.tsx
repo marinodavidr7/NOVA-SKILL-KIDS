@@ -25,7 +25,7 @@ export default function EventsList({ dbEvents }: { dbEvents: any[] }) {
         {dbEvents.map((event: any, idx: number) => {
           const dateObj = new Date(`${event.date}T12:00:00`);
           const day = dateObj.getDate().toString();
-          const month = dateObj.toLocaleString('es-MX', { month: 'short' }).substring(0, 3);
+          const month = dateObj.toLocaleString('es-DO', { month: 'short' }).substring(0, 3);
           
           const EventIcon = eventIcons[idx % eventIcons.length];
           

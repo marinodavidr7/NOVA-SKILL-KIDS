@@ -117,17 +117,17 @@ export default async function NutritionDashboard() {
             <h2 className="font-bold text-white text-lg">Menú Semanal</h2>
           </div>
           <span className="text-sm text-slate-400 font-medium">
-            {new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long' }).format(weekDates[0])}
+            {new Intl.DateTimeFormat('es-DO', { day: 'numeric', month: 'long' }).format(weekDates[0])}
             {' — '}
-            {new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(weekDates[4])}
+            {new Intl.DateTimeFormat('es-DO', { day: 'numeric', month: 'long', year: 'numeric' }).format(weekDates[4])}
           </span>
         </div>
 
         <div className="divide-y divide-slate-100">
           {weekMenus.map((dayData, idx) => {
-            const dayName = new Intl.DateTimeFormat('es-MX', { weekday: 'long' }).format(dayData.dateObj);
+            const dayName = new Intl.DateTimeFormat('es-DO', { weekday: 'long' }).format(dayData.dateObj);
             const dayNum = dayData.dateObj.getDate();
-            const monthShort = new Intl.DateTimeFormat('es-MX', { month: 'short' }).format(dayData.dateObj);
+            const monthShort = new Intl.DateTimeFormat('es-DO', { month: 'short' }).format(dayData.dateObj);
             const isToday = dayData.dateStr === today;
             const isPast = dayData.dateStr < today;
 

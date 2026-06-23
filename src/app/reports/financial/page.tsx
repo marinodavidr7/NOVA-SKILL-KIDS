@@ -11,7 +11,7 @@ export default async function FinancialReportPage({ searchParams }: { searchPara
   
   const [year, monthStr] = currentMonth.split('-');
   const dateObj = new Date(parseInt(year), parseInt(monthStr) - 1, 1);
-  const displayMonth = new Intl.DateTimeFormat('es-MX', { month: 'long', year: 'numeric' }).format(dateObj);
+  const displayMonth = new Intl.DateTimeFormat('es-DO', { month: 'long', year: 'numeric' }).format(dateObj);
 
   const reportData = await getFinancialStateReport(currentMonth);
 
@@ -69,7 +69,7 @@ export default async function FinancialReportPage({ searchParams }: { searchPara
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Periodo Reportado</p>
               <p className="text-lg font-bold text-slate-800 capitalize">{displayMonth}</p>
               <p className="text-xs text-slate-500 mt-2">
-                Generado el: {new Intl.DateTimeFormat('es-MX', { dateStyle: 'long' }).format(now)}
+                Generado el: {new Intl.DateTimeFormat('es-DO', { dateStyle: 'long' }).format(now)}
               </p>
             </div>
           </div>
