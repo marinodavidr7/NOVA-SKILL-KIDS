@@ -153,8 +153,8 @@ export default function TripDetailsPage({ params }: { params: Promise<{ id: stri
               </CardDescription>
             </div>
             <Dialog open={isEnrollDialogOpen} onOpenChange={setIsEnrollDialogOpen}>
-              <DialogTrigger asChild>
-                <Button size="sm" className="gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20"><PlusCircle className="h-4 w-4" /> Inscribir Alumnos</Button>
+              <DialogTrigger render={<Button size="sm" className="gap-2 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20" />}>
+                <PlusCircle className="h-4 w-4" /> Inscribir Alumnos
               </DialogTrigger>
               <DialogContent className="max-w-xl">
                 <DialogHeader>
@@ -246,8 +246,8 @@ export default function TripDetailsPage({ params }: { params: Promise<{ id: stri
                           <PDFDownloadButton trip={trip} participant={p} />
                           {pending > 0 && (
                             <Dialog>
-                              <DialogTrigger asChild>
-                                <Button size="sm" variant="outline" className="h-8 border-emerald-200 text-emerald-700 hover:bg-emerald-50">Cobrar</Button>
+                              <DialogTrigger render={<Button size="sm" variant="outline" className="h-8 border-emerald-200 text-emerald-700 hover:bg-emerald-50" />}>
+                                Cobrar
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
@@ -278,8 +278,8 @@ export default function TripDetailsPage({ params }: { params: Promise<{ id: stri
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-base">Gastos del Viaje</CardTitle>
             <Dialog>
-              <DialogTrigger asChild>
-                <Button size="sm" variant="outline" className="h-8">Añadir Gasto</Button>
+              <DialogTrigger render={<Button size="sm" variant="outline" className="h-8" />}>
+                Añadir Gasto
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
