@@ -192,7 +192,7 @@ export async function getUsersForSwitcher() {
         s.firstName as staffFirstName, s.lastName as staffLastName
       FROM users u
       LEFT JOIN staff s ON u.staffId = s.id
-      WHERE u.username != 'Nova Skill Admin'
+      ORDER BY u.role = 'admin' DESC, u.firstName ASC
     `);
 
     return users.map(u => {

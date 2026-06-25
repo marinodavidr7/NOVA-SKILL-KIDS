@@ -15,7 +15,10 @@ async function createAdmin() {
       database: dbName
     });
 
-    const hashedPassword = await bcrypt.hash('novaskill2026', 10);
+    const crypto = require('crypto');
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.pbkdf2Sync('novaskill2026', salt, 1000, 64, 'sha512').toString('hex');
+    const hashedPassword = `${salt}:${hash}`;
     
     await connection.execute(
       `INSERT INTO users (username, password, role, title) VALUES (?, ?, 'admin', 'Director General')
