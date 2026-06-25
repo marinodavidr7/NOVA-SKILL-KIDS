@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS read_notifications (id VARCHAR(255) PRIMARY KEY, read
 CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
       staffId INTEGER,
-      username TEXT UNIQUE NOT NULL,
+      username VARCHAR(255) UNIQUE NOT NULL,
       password TEXT NOT NULL,
       pin TEXT,
       role VARCHAR(255) DEFAULT 'teacher',
@@ -328,11 +328,11 @@ CREATE TABLE IF NOT EXISTS app_settings (
     );
 CREATE TABLE IF NOT EXISTS transport_vehicles (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
-      code TEXT UNIQUE NOT NULL,
+      code VARCHAR(255) UNIQUE NOT NULL,
       brand TEXT NOT NULL,
       model TEXT NOT NULL,
       year INTEGER,
-      plate TEXT UNIQUE NOT NULL,
+      plate VARCHAR(255) UNIQUE NOT NULL,
       capacity INTEGER NOT NULL,
       status VARCHAR(255) DEFAULT 'Activo', -- Activo, Mantenimiento, Inactivo
       insuranceExpiration DATE,
@@ -344,7 +344,7 @@ CREATE TABLE IF NOT EXISTS transport_drivers (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
       firstName TEXT NOT NULL,
       lastName TEXT NOT NULL,
-      licenseNumber TEXT UNIQUE NOT NULL,
+      licenseNumber VARCHAR(255) UNIQUE NOT NULL,
       licenseExpiration DATE,
       phone TEXT,
       address TEXT,
@@ -429,7 +429,7 @@ CREATE TABLE IF NOT EXISTS transport_expenses (
     );
 CREATE TABLE IF NOT EXISTS document_categories (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
-      name TEXT UNIQUE NOT NULL,
+      name VARCHAR(255) UNIQUE NOT NULL,
       description TEXT
     );
 CREATE TABLE IF NOT EXISTS documents (
