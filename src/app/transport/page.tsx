@@ -196,6 +196,15 @@ export default async function TransportDashboard() {
                 </div>
               </Button>
             </Link>
+            <Link href="/transport/trips">
+              <Button variant="outline" className="w-full justify-start gap-3 h-12">
+                <MapIcon className="h-4 w-4 text-emerald-600" />
+                <div className="flex flex-col items-start">
+                  <span>Excursiones y Viajes</span>
+                  <span className="text-xs text-muted-foreground font-normal">Gestionar eventos especiales, permisos y cobros</span>
+                </div>
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>

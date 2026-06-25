@@ -1,38 +1,48 @@
 const mysql = require('mysql2/promise');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 require('dotenv').config({ path: '.env' });
 
 async function initDB() {
   try {
-    // Parse the DATABASE_URL
     const url = new URL(process.env.DATABASE_URL);
     const dbName = url.pathname.replace('/', '');
     
-    // Connect without database to create it
     const connection = await mysql.createConnection({
       host: url.hostname,
       port: url.port || 3306,
       user: url.username,
       password: url.password,
-      multipleStatements: true // Crucial for running a full schema file
+      multipleStatements: true
     });
 
     console.log(`Conectado a MySQL en ${url.hostname}...`);
     
-    // Create database if not exists
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
     console.log(`Base de datos '${dbName}' asegurada.`);
     
-    // Use the database
     await connection.query(`USE \`${dbName}\``);
     
-    // Read and execute schema
     const schemaSql = fs.readFileSync('mysql-schema.sql', 'utf8');
     console.log('Ejecutando mysql-schema.sql (creando tablas)...');
     
     await connection.query(schemaSql);
-    console.log('✅ Esquema importado correctamente. ¡Todo listo!');
+    console.log('✅ Esquema importado correctamente.');
     
+    // Check if users table is empty to avoid duplicating admin
+    const [rows] = await connection.query('SELECT COUNT(*) as count FROM users');
+    if (rows[0].count === 0) {
+      console.log('Creando usuario administrador por defecto...');
+      const hashedPassword = await bcrypt.hash('admin123', 10);
+      await connection.execute(
+        `INSERT INTO users (username, password, role) VALUES (?, ?, 'Admin')`,
+        ['admin', hashedPassword]
+      );
+      console.log('✅ Usuario administrador (admin / admin123) creado por defecto.');
+    } else {
+      console.log('ℹ️ La tabla de usuarios ya contiene datos, saltando la creación del admin.');
+    }
+
     await connection.end();
   } catch (error) {
     console.error('❌ Error inicializando la base de datos:', error.message);
