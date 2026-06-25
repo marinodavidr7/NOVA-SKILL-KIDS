@@ -18,11 +18,12 @@ async function createAdmin() {
     const hashedPassword = await bcrypt.hash('novaskill2026', 10);
     
     await connection.execute(
-      `INSERT INTO users (username, password, role) VALUES (?, ?, 'Admin')`,
-      ['Admin', hashedPassword]
+      `INSERT INTO users (username, password, role, title) VALUES (?, ?, 'admin', 'Director General')
+       ON DUPLICATE KEY UPDATE password = VALUES(password), role = VALUES(role), title = VALUES(title)`,
+      ['Nova Skill Admin', hashedPassword]
     );
 
-    console.log('✅ Usuario Admin creado correctamente.');
+    console.log('✅ Usuario Nova Skill Admin creado correctamente (Director General).');
     await connection.end();
   } catch (error) {
     console.error('❌ Error creando administrador:', error.message);

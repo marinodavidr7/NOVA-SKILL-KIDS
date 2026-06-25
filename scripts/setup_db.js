@@ -33,12 +33,13 @@ async function initDB() {
     const [rows] = await connection.query('SELECT COUNT(*) as count FROM users');
     if (rows[0].count === 0) {
       console.log('Creando usuario administrador por defecto...');
-      const hashedPassword = await bcrypt.hash('admin123', 10);
+      const hashedPassword = await bcrypt.hash('novaskill2026', 10);
       await connection.execute(
-        `INSERT INTO users (username, password, role, title) VALUES (?, ?, 'admin', 'Director General')`,
-        ['admin', hashedPassword]
+        `INSERT INTO users (username, password, role, title) VALUES (?, ?, 'admin', 'Director General')
+         ON DUPLICATE KEY UPDATE password = VALUES(password), role = VALUES(role), title = VALUES(title)`,
+        ['Nova Skill Admin', hashedPassword]
       );
-      console.log('✅ Usuario administrador (admin / admin123) creado por defecto (Director General).');
+      console.log('✅ Usuario administrador (Nova Skill Admin / novaskill2026) creado por defecto (Director General).');
     } else {
       console.log('ℹ️ La tabla de usuarios ya contiene datos, saltando la creación del admin.');
     }
