@@ -14,8 +14,12 @@ async function fixPassword() {
       database: dbName
     });
 
+    const bcrypt = require('bcryptjs');
+    const hashedPassword = await bcrypt.hash('novaskill2026', 10);
+    
     await connection.execute(
-      `UPDATE users SET password = 'novaskill2026' WHERE username = 'Nova Skill Admin'`
+      `UPDATE users SET password = ? WHERE username = 'Nova Skill Admin'`,
+      [hashedPassword]
     );
 
     console.log('✅ Contraseña restablecida correctamente.');
