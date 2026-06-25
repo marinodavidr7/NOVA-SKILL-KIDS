@@ -282,8 +282,8 @@ CREATE TABLE IF NOT EXISTS loan_payments (
     );
 CREATE TABLE IF NOT EXISTS budgets (
       id INTEGER PRIMARY KEY AUTO_INCREMENT,
-      category TEXT NOT NULL,
-      period TEXT NOT NULL, -- YYYY-MM
+      category VARCHAR(255) NOT NULL,
+      period VARCHAR(255) NOT NULL, -- YYYY-MM
       estimatedAmount REAL NOT NULL,
       notes TEXT,
       createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
