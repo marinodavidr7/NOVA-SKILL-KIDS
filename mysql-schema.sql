@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS health_incidents (
   FOREIGN KEY (childId) REFERENCES children(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS app_settings (
-      key_name VARCHAR(255) PRIMARY KEY,
+      `key` VARCHAR(255) PRIMARY KEY,
       value TEXT NOT NULL
     );
 CREATE TABLE IF NOT EXISTS transport_vehicles (
@@ -517,4 +517,34 @@ CREATE TABLE IF NOT EXISTS transport_trip_participants (
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tripId) REFERENCES transport_trips(id) ON DELETE CASCADE,
     FOREIGN KEY (childId) REFERENCES children(id) ON DELETE CASCADE
+);CREATE TABLE IF NOT EXISTS subscription_packages (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  min_age INTEGER,
+  max_age INTEGER,
+  duration_weeks INTEGER,
+  start_date DATE,
+  end_date DATE,
+  schedule_days VARCHAR(255),
+  start_time TIME,
+  end_time TIME,
+  enrollment_fee DECIMAL(10,2) DEFAULT 0,
+  periodic_fee DECIMAL(10,2) DEFAULT 0,
+  periodic_frequency VARCHAR(255) DEFAULT 'mensual',
+  payment_day_spec VARCHAR(255),
+  total_fee DECIMAL(10,2) DEFAULT 0,
+  payment_deadline INTEGER,
+  discount_percentage DECIMAL(5,2) DEFAULT 0,
+  capacity INTEGER,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS child_subscriptions (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  child_id INTEGER NOT NULL,
+  package_id INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (child_id) REFERENCES children(id) ON DELETE CASCADE,
+  FOREIGN KEY (package_id) REFERENCES subscription_packages(id) ON DELETE CASCADE
 );
