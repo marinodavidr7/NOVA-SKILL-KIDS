@@ -35,10 +35,10 @@ async function initDB() {
       console.log('Creando usuario administrador por defecto...');
       const hashedPassword = await bcrypt.hash('admin123', 10);
       await connection.execute(
-        `INSERT INTO users (username, password, role) VALUES (?, ?, 'Admin')`,
+        `INSERT INTO users (username, password, role, title) VALUES (?, ?, 'admin', 'Director General')`,
         ['admin', hashedPassword]
       );
-      console.log('✅ Usuario administrador (admin / admin123) creado por defecto.');
+      console.log('✅ Usuario administrador (admin / admin123) creado por defecto (Director General).');
     } else {
       console.log('ℹ️ La tabla de usuarios ya contiene datos, saltando la creación del admin.');
     }
